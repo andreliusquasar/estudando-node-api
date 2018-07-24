@@ -5,7 +5,7 @@ const debug = require('debug')('nodestr:server');
 const express = require('express');
 
 const app = express();
-const port = 3000;
+const port = normalizePort(process.env.PORT || '3000');
 
 app.set('port', port);
 
@@ -23,4 +23,17 @@ var route = router.get('/', (req, res, next) => {
 app.use('/', route);
 
 server.listen(port);
-console.log('Subindo a aplicação');
+console.log('Subindo a aplicação', port);
+
+// Normalizando uma porta para não ficar fixa
+function normalizePort(val) {
+    const port = parseInt(val, 10);
+
+    if (isNaN(port)) {
+        return val;
+    }
+    if (port >= 0) {
+        return port;
+    }
+    return false;
+}
