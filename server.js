@@ -23,10 +23,10 @@ var route = router.get('/', (req, res, next) => {
 app.use('/', route);
 
 server.listen(port);
+server.on('error', onError);
+server.on('listening', onListening);
+
 console.log('Subindo a aplicação', port);
-
-server.on('error', onError)
-
 
 
 /**
@@ -67,4 +67,15 @@ function onError(error) {
         default:
             throw error;
     }    
+}
+
+/**
+ * Criando funcao de debug
+ */
+function onListening() {
+    const addr = server.address();
+    const bind = typeof addr === 'string'
+        ? 'pipe ' + addr
+        : 'port ' + addr.port;
+    debug('Listening on ' + bind);    
 }
