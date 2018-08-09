@@ -1,26 +1,11 @@
-'use strict'
-
-const http = require('http');
+const app = require('../src/app');
 const debug = require('debug')('nodestr:server');
-const express = require('express');
+const http = require('http');
 
-const app = express();
 const port = normalizePort(process.env.PORT || '3000');
-
 app.set('port', port);
 
 const server = http.createServer(app);
-const router = express.Router();
-
-
-// Configurando primeira rota
-var route = router.get('/', (req, res, next) => {
-    res.status(200).send({
-        title: "Minha API Node",
-        version: "0.0.1"
-    });
-});
-app.use('/', route);
 
 server.listen(port);
 server.on('error', onError);
@@ -31,7 +16,7 @@ console.log('Subindo a aplicação', port);
 
 /**
  * Normalizando uma porta para não ficar fixa
- */ 
+ */
 function normalizePort(val) {
     const port = parseInt(val, 10);
 
@@ -52,7 +37,7 @@ function onError(error) {
         throw error;
     }
 
-    const bind = typeof port ===  'string' ?
+    const bind = typeof port === 'string' ?
         'Pipe ' + port :
         'Port ' + port;
 
@@ -66,7 +51,7 @@ function onError(error) {
             process.exit(1);
         default:
             throw error;
-    }    
+    }
 }
 
 /**
@@ -77,5 +62,5 @@ function onListening() {
     const bind = typeof addr === 'string'
         ? 'pipe ' + addr
         : 'port ' + addr.port;
-    debug('Listening on ' + bind);    
+    debug('Listening on ' + bind);
 }
