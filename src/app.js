@@ -8,9 +8,7 @@ const app = express();
 const router = express.Router();
 
 // Conexao com o banco
-mongoose.connect(
-  "string de conexao"
-);
+mongoose.connect('string de conexao');
 
 // Carregar Rotas
 const indexRoutes   = require('./routes/index-routes');
