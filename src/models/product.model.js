@@ -3,9 +3,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const schema = new Schema({});
-
-module.exports = mongoose.model({
+const schema = new Schema({
     title: {
         type: String,
         required: true,
@@ -24,7 +22,7 @@ module.exports = mongoose.model({
     },
     price: {
         type: Number,
-        required: true
+        required: [true, 'O preço é obrigatório!']
     },
     active: {
         type: Boolean,
@@ -33,6 +31,8 @@ module.exports = mongoose.model({
     },
     tags: [{
         type: String,
-        required
+        required: true
     }]
 });
+
+module.exports = mongoose.model('Product', schema);
