@@ -3,6 +3,15 @@
 const mongoose = require('mongoose');
 const Product = mongoose.model('Product');
 
+exports.get = (req, res, next) => {
+    Product.find({active: true}, 'title price slug')
+            .then(data => {
+                res.status(200).send(data);
+            }).catch(error => {
+                res.status(400).send(error);
+            });
+}
+
 exports.post = (req, res, next) => {
     var product = new Product(req.body);//Dessa forma é perigoso, pois vc pode passar valores que não deveria
     // product.title = ''; Desse forma vc especifica o que passar para o DB
