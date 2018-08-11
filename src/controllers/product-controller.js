@@ -10,7 +10,23 @@ exports.get = (req, res, next) => {
             }).catch(error => {
                 res.status(400).send(error);
             });
-}
+};
+
+exports.getBySlug = (req, res, next) => {
+    // Quando se utiliza somente find, retorna um array
+    // Product.find({
+    
+    // Para retornar um objeto, utilizar findOne
+    Product.findOne({
+        slug: req.params.slug,
+        active: true
+    }, 'title description price slug tags')
+    .then(data => {
+        res.status(200).send(data);
+    }).catch(error => {
+        res.status(400).send(error);
+    })
+};
 
 exports.post = (req, res, next) => {
     var product = new Product(req.body);//Dessa forma é perigoso, pois vc pode passar valores que não deveria
