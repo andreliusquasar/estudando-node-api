@@ -16,7 +16,7 @@ exports.getBySlug = (req, res, next) => {
     // Quando se utiliza somente find, retorna um array
     // Product.find({
     
-    // Para retornar um objeto, utilizar findOne
+    // Para retornar um objeto, utilizar findOne 2018-859-469-083
     Product.findOne({
         slug: req.params.slug,
         active: true
@@ -26,6 +26,16 @@ exports.getBySlug = (req, res, next) => {
     }).catch(error => {
         res.status(400).send(error);
     })
+};
+
+exports.getById = (req, res, next) => {
+    Product.findById(req.params.id)
+        .then(data => {
+            res.status(200).send(data);
+        })
+        .catch(error => {
+            res.status(400).send(error);
+        });
 };
 
 exports.post = (req, res, next) => {
